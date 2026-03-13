@@ -1,11 +1,21 @@
-scores <- read.csv(file.choose(), header=TRUE)
+this is my excel file 
+A B C 
+85 76 92 
+90 78 88 
+88 80 94 
+82 81 89
+87 75 90 
 
-anova_result <- aov(score ~ class, data=scores)
 
-summary(anova_result)
+satlevel <- read.csv(file.choose(), header = TRUE)
 
+# Convert wide format to long format
+scores <- stack(satlevel)
 
-dataset=# Scores of each class
-class_A = [85, 90, 88, 82, 87]
-class_B = [76, 78, 80, 81, 75]
-class_C = [92, 88, 94, 89, 90]
+# Rename columns
+colnames(scores) <- c("Score", "Class")
+
+# Perform One Way ANOVA
+anovatable <- aov(Score ~ Class, data = scores)
+
+summary(anovatable)
